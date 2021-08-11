@@ -19,11 +19,7 @@ const Home = (props) => {
           <br></br>
           <Link to='/signup'>Sign Up</Link>
           <br></br>
-          { 
-            props.loggedInStatus ? 
-            <Link to='/logout' onClick={handleClick}>Log Out</Link> : 
-            null
-          }
+          { props.loggedInStatus ? <Link to='/logout' onClick={handleClick}>Log Out</Link> : null }
         </div>
       );
     };

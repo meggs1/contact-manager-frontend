@@ -2,30 +2,30 @@ import React, { Component } from 'react';
 import axios from 'axios'
 class SignUp extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = { 
       username: '',
       email: '',
       password: '',
       password_confirmation: '',
       errors: ''
-     };
+     }
   }
     handleChange = (event) => {
         const {name, value} = event.target
         this.setState({
-        [name]: value
+            [name]: value
         })
-    };
+    }
 
     handleSubmit = (event) => {
         event.preventDefault()
         const {username, email, password, password_confirmation} = this.state
         let user = {
-        username: username,
-        email: email,
-        password: password,
-        password_confirmation: password_confirmation
+            username: username,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation
         }
         axios.post('http://localhost:3001/users', {user}, {withCredentials: true})
         .then(response => {
@@ -43,16 +43,17 @@ class SignUp extends Component {
         redirect = () => {
         this.props.history.push('/')
     }
+
     handleErrors = () => {
         return (
-        <div>
-            <ul>
-            {this.state.errors.map(error => {
-            return <li key={error}>{error}</li>
-            })
-            }
-            </ul>
-        </div>
+            <div>
+                <ul>
+                {this.state.errors.map(error => {
+                return <li key={error}>{error}</li>
+                })
+                }
+                </ul>
+            </div>
         )
     }
 
@@ -90,19 +91,13 @@ class SignUp extends Component {
                     value={password_confirmation}
                     onChange={this.handleChange}
                 />
-                
-                <button placeholder="submit" type="submit">
-                    Sign Up
-                </button>
-            
-                </form>
+                <button placeholder="submit" type="submit">Sign Up</button>
+            </form>
                 <div>
-                {
-                    this.state.errors ? this.handleErrors() : null
-                }
+                    {this.state.errors ? this.handleErrors() : null}
                 </div>
             </div>
-        );
+        )
     }
 }
-export default SignUp;
+export default SignUp

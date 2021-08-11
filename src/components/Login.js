@@ -10,41 +10,44 @@ class Login extends Component {
       email: '',
       password: '',
       errors: ''
-     };
+    }
   }
-handleChange = (event) => {
+
+  handleChange = (event) => {
     const {name, value} = event.target
     this.setState({
       [name]: value
     })
-  };
-handleSubmit = (event) => {
+  }
+
+  handleSubmit = (event) => {
     event.preventDefault()
     const {username, email, password} = this.state
-let user = {
+    let user = {
       username: username,
       email: email,
       password: password
-    }
-    
-axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
-    .then(response => {
-      if (response.data.logged_in) {
-        this.props.handleLogin(response.data)
-        this.redirect()
-      } else {
-        this.setState({
-          errors: response.data.errors
-        })
-      }
-    })
-    .catch(error => console.log('api errors:', error))
-  };
-redirect = () => {
+    }    
+    axios.post('http://localhost:3001/login', {user}, {withCredentials: true})
+      .then(response => {
+        if (response.data.logged_in) {
+          this.props.handleLogin(response.data)
+          this.redirect()
+        } else {
+          this.setState({
+            errors: response.data.errors
+          })
+        }
+      })
+      .catch(error => console.log('api errors:', error))
+  }
+  
+  redirect = () => {
     this.props.history.push('/')
   }
   
-handleErrors = () => {
+  
+  handleErrors = () => {
     return (
       <div>
         <ul>
@@ -55,9 +58,10 @@ handleErrors = () => {
       </div>
     )
   }
-render() {
+
+  render() {
     const {username, email, password} = this.state
-return (
+    return (
       <div>
         <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>
@@ -75,21 +79,16 @@ return (
             value={password}
             onChange={this.handleChange}
           />
-          <button placeholder="submit" type="submit">
-            Log In
-          </button>
+          <button placeholder="submit" type="submit">Log In</button>
           <div>
-           or <Link to='/signup'>sign up</Link>
-          </div>
-          
+            or <Link to='/signup'>sign up</Link>
+          </div>  
         </form>
         <div>
-          {
-            this.state.errors ? this.handleErrors() : null
-          }
+          {this.state.errors ? this.handleErrors() : null}
         </div>
       </div>
-    );
+    )
   }
 }
 export default Login
